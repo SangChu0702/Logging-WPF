@@ -1,0 +1,29 @@
+﻿<Window x:Class="UARTLogging.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:prism="http://prismlibrary.com/"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        Title="{Binding Title}" Height="350" Width="525" >
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="230" MaxWidth="300"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <TabControl Grid.Column="0">
+            <TabItem Header="Serial Port">
+                <Frame prism:RegionManager.RegionName="SPView"/>
+            </TabItem>
+            <TabItem Header="Log">
+                <Frame prism:RegionManager.RegionName="LogView"/>
+            </TabItem>
+        </TabControl>
+        <GridSplitter Grid.Column="1" ResizeDirection="Columns" 
+                      HorizontalAlignment="Stretcsh" Width="3"
+                      Background="Transparent"
+                      VerticalAlignment="Stretch"/>
+        <Grid Grid.Column="2" Margin="0,22,10,10">
+            <ContentControl prism:RegionManager.RegionName="LogMonitorView"/>
+        </Grid>
+    </Grid>
+</Window>
