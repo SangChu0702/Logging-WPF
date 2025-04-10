@@ -42,7 +42,7 @@
         <ItemsControl ItemsSource="{Binding Logs}" Style="{StaticResource LogViewerStyle}">
             <ItemsControl.Template>
                 <ControlTemplate>
-                    <ScrollViewer CanContentScroll="True">
+                    <ScrollViewer CanContentScroll="True" ScrollChanged="ScrollViewer_ScrollChanged">
                         <ItemsPresenter/>
                     </ScrollViewer>
                 </ControlTemplate>

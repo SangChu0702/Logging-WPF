@@ -13,6 +13,7 @@ using Windows.Storage.Pickers;
 using System.Windows;
 using Microsoft.Win32;
 using System.Windows.Threading;
+using Windows.UI;
 
 namespace UARTLogging.ViewModels
 {
@@ -27,25 +28,17 @@ namespace UARTLogging.ViewModels
             _selectedData = Datas[1].Value;
             _selectedParity = Paritys[0].Value;
             _selectedStopBit = Stopbits[0].Value;
-            for(int i = 0; i < 1000000; i++)
-            {
-                Logs.Add(new LogModel
-                {
-                    LogIndex = index++,
-                    LogTimeStamp = DateTime.Now,
-                    LogData = "XXXXXXXXXXXXXXXXXXXX"
-                });
-            }    
+
         }
 
         private void _onUpdateTimerTick(object sender, EventArgs e)
         {
-            //Logs.Add(new LogModel
-            //{ 
-            //    LogIndex = index++,
-            //    LogTimeStamp = DateTime.Now,
-            //    LogData = "XXXXXXXXXXXXXXXXXXXX"
-            //});
+            Logs.Add(new LogModel
+            {
+                LogIndex = index++,
+                LogTimeStamp = DateTime.Now,
+                LogData = "XXXXXXXXXXXXXXXXXXXX"
+            });
             //while (_dataQueue.Count > 0)
             //{
             //    DataReceived.Add(_dataQueue.Dequeue());
