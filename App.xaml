@@ -4,6 +4,8 @@
              xmlns:local="clr-namespace:UARTLogging"
              xmlns:prism="http://prismlibrary.com/" >
     <Application.Resources>
-         
+        <ResourceDictionary Source="/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml"/>
+
+
     </Application.Resources>
 </prism:PrismApplication>

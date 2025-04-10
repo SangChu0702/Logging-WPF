@@ -5,6 +5,7 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes" Version="5.2.2-ci942" />
     <PackageReference Include="Prism.DryIoc" Version="8.1.97" />
     <PackageReference Include="System.IO.Ports" Version="9.0.4" />
   </ItemGroup>

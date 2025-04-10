@@ -21,14 +21,13 @@ namespace UARTLogging.ViewModels
     {
         public MainViewModel()
         {
-            _updateTimer.Tick += _onUpdateTimerTick;
+            _updateLogTimer.Tick += _onUpdateTimerTick;
             _onLoadComPorts();
             _selectedPort = ComPorts[0];
             _selectedSpeed = Speeds[8];
             _selectedData = Datas[1].Value;
             _selectedParity = Paritys[0].Value;
             _selectedStopBit = Stopbits[0].Value;
-
         }
 
         private void _onUpdateTimerTick(object sender, EventArgs e)
@@ -43,7 +42,6 @@ namespace UARTLogging.ViewModels
             //{
             //    DataReceived.Add(_dataQueue.Dequeue());
             //}
-
         }
         #region Properties
         private string _title = "UART Logging";
@@ -52,7 +50,7 @@ namespace UARTLogging.ViewModels
         private Queue<string> _dataQueue = new Queue<string>();
         private int index;
         public ObservableCollection<LogModel> Logs { get; } = new ObservableCollection<LogModel>();
-        private readonly DispatcherTimer _updateTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(100) };
+        private readonly DispatcherTimer _updateLogTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(100) };
         private bool _isReading = false;
         public bool IsReading 
         { 
@@ -132,6 +130,7 @@ namespace UARTLogging.ViewModels
         public DelegateCommand OnStartClick => new DelegateCommand(_onStartClick);
         public DelegateCommand OnStopClick => new DelegateCommand(_onStopClick);
         public DelegateCommand OnFolderPickerClick => new DelegateCommand(_onFolderPickerClick);
+        public DelegateCommand OnLoadComPorts => new DelegateCommand(_onLoadComPorts);
         private void _onStartClick()
         {
             try
@@ -145,7 +144,7 @@ namespace UARTLogging.ViewModels
                     _serialPort.Open();
                     //DataReceived.Clear();
                     //DataReceived.Add($"[{(IsTimeStampChecked ? DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") : "")}] Start logging");
-                    _updateTimer.Start();
+                    _updateLogTimer.Start();
                     IsReading = true;
                 }
             }
@@ -153,7 +152,7 @@ namespace UARTLogging.ViewModels
             {
                 //DataReceived.Clear();
                 //DataReceived.Add("Error opening port: " + ex.Message);
-                _updateTimer.Stop();
+                _updateLogTimer.Stop();
             }
         }
         private void _onStopClick()
@@ -164,7 +163,7 @@ namespace UARTLogging.ViewModels
                 {
                     _serialPort.Close();
                     //DataReceived.Add($"[{(IsTimeStampChecked ? DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") : "")}] Stop logging");
-                    _updateTimer.Stop();
+                    _updateLogTimer.Stop();
                     IsReading = false;
                 }
             }
@@ -199,11 +198,18 @@ namespace UARTLogging.ViewModels
         }
         private void _onLoadComPorts()
         {
-            string[] ports = SerialPort.GetPortNames();
-            ComPorts.Clear();
-            foreach (string port in ports)
+            try
             {
-                ComPorts.Add(port);
+                string[] ports = SerialPort.GetPortNames();
+                ComPorts.Clear();
+                foreach (string port in ports)
+                {
+                    ComPorts.Add(port);
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Error loading COM ports: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         #endregion
