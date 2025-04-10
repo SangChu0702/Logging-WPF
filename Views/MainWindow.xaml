@@ -19,7 +19,7 @@
             </TabItem>
         </TabControl>
         <GridSplitter Grid.Column="1" ResizeDirection="Columns" 
-                      HorizontalAlignment="Stretcsh" Width="3"
+                      HorizontalAlignment="Stretch" Width="3"
                       Background="Transparent"
                       VerticalAlignment="Stretch"/>
         <Grid Grid.Column="2" Margin="0,22,10,10">
